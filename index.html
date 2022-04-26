@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="website">
 <meta property="og:title" content="HalfGhostX的博客">
@@ -46,6 +46,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+  
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -74,6 +75,7 @@
 
   <div class="site-nav-right">
     <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
     </div>
   </div>
 </div>
@@ -81,12 +83,38 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">12</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">3</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">5</span></a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">15</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">9</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">6</span></a></li><li class="menu-item menu-item-playlist"><a href="/playlist/" rel="section"><i class="fa fa-music fa-fw"></i>歌单</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
   </ul>
 </nav>
 
 
 
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
 
 </div>
         
@@ -99,8 +127,29 @@
 
   <aside class="sidebar">
 
+<!-- require APlayer -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+    <!-- require MetingJS-->
+    <script src="/lib/Meting.min.js"></script>
+    
+	<!--������-->   
+    <div class="aplayer no-destroy" 
+      data-id="7394887122" 
+      data-server="netease" 
+      data-type="playlist" 
+      data-fixed="false" 
+      data-autoplay="true" 
+      data-list-folded="true"
+      data-mutex="true"
+      data-order="random" 
+      data-loop="all"
+      data-volume="0.4" 
+      data-theme="#FADFA3" 
+      date-preload="auto"> 
+    </div>
+
     <div class="sidebar-inner sidebar-overview-active">
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=245 height=100 src="//music.163.com/outchain/player?type=2&id=1872975581&auto=1&height=66"></iframe>
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -127,18 +176,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -189,6 +238,124 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/26/%E5%8B%92%E7%89%B9%C2%B7%E6%8B%89%E4%B9%8C%E5%A6%82%E6%98%AF%E8%AF%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.png">
+      <meta itemprop="name" content="W&D">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HalfGhostX的博客">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | HalfGhostX的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/26/%E5%8B%92%E7%89%B9%C2%B7%E6%8B%89%E4%B9%8C%E5%A6%82%E6%98%AF%E8%AF%B4/" class="post-title-link" itemprop="url">勒特·拉乌如是说</a>
+        </h2>
+
+        <div class="post-meta-container">
+	
+    <i class="fa fa-thumb-tack"></i>
+    <font color="RED">置顶</font>
+    <span class="post-meta-divider">|</span>
+
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-26 08:45:06 / 修改时间：15:50:37" itemprop="dateCreated datePublished" datetime="2022-04-26T08:45:06+08:00">2022-04-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E4%B9%A6/%E6%9D%82%E6%84%9F/" itemprop="url" rel="index"><span itemprop="name">杂感</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E4%B9%A6/%E6%9D%82%E6%84%9F/%E9%9A%8F%E7%AC%94/" itemprop="url" rel="index"><span itemprop="name">随笔</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>你知道吗？在南纬30度，西经76度的地方，有一盏灯，每天九点五十六分准时熄灭。晴天是这样，阴天亦如此。你问我雨天呢？我不知道，因为雨天我撑着一把黑色的伞。——（W&D）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/26/%E5%8B%92%E7%89%B9%C2%B7%E6%8B%89%E4%B9%8C%E5%A6%82%E6%98%AF%E8%AF%B4/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+
+<div>
+  
+</div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/25/%E6%88%91%E9%80%A0%E7%9A%84%E6%96%B0%E8%AF%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,15 +378,22 @@
         </h2>
 
         <div class="post-meta-container">
+	
           <div class="post-meta">
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-04-25 20:29:00 / 修改时间：20:47:39" itemprop="dateCreated datePublished" datetime="2022-04-25T20:29:00+08:00">2022-04-25</time>
+      <time title="创建时间：2022-04-25 20:29:00" itemprop="dateCreated datePublished" datetime="2022-04-25T20:29:00+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-26 08:41:50" itemprop="dateModified" datetime="2022-04-26T08:41:50+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -227,7 +401,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
+          <a href="/categories/%E8%84%91%E6%B4%9E/" itemprop="url" rel="index"><span itemprop="name">脑洞</span></a>
         </span>
     </span>
 
@@ -238,7 +412,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>538</span>
+      <span>544</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -256,7 +430,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>关于脑洞这件事。</p>
+          <p>关于脑洞这件事，瞎想的乱七八糟的东西。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/25/%E6%88%91%E9%80%A0%E7%9A%84%E6%96%B0%E8%AF%8D/">
@@ -316,15 +490,22 @@
         </h2>
 
         <div class="post-meta-container">
+	
           <div class="post-meta">
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-04-25 18:22:00 / 修改时间：20:46:25" itemprop="dateCreated datePublished" datetime="2022-04-25T18:22:00+08:00">2022-04-25</time>
+      <time title="创建时间：2022-04-25 18:22:00" itemprop="dateCreated datePublished" datetime="2022-04-25T18:22:00+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-26 08:44:21" itemprop="dateModified" datetime="2022-04-26T08:44:21+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -333,6 +514,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url" rel="index"><span itemprop="name">计算机</span></a>
         </span>
     </span>
 
@@ -343,7 +528,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>618</span>
+      <span>631</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -361,7 +546,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>教程</p>
+          <p>关于计算机环境变量的问题，其含义以及怎么设置等等。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/25/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/">
@@ -421,15 +606,22 @@
         </h2>
 
         <div class="post-meta-container">
+	
           <div class="post-meta">
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-04-25 10:45:00 / 修改时间：14:21:50" itemprop="dateCreated datePublished" datetime="2022-04-25T10:45:00+08:00">2022-04-25</time>
+      <time title="创建时间：2022-04-25 10:45:00" itemprop="dateCreated datePublished" datetime="2022-04-25T10:45:00+08:00">2022-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-26 08:42:41" itemprop="dateModified" datetime="2022-04-26T08:42:41+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -438,6 +630,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E4%B9%A6/%E4%B9%A6%E5%8D%95/" itemprop="url" rel="index"><span itemprop="name">书单</span></a>
         </span>
     </span>
 
@@ -448,7 +644,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>455</span>
+      <span>456</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -466,7 +662,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>读书</p>
+          <p>记录一下自己读过的书的目录，有的已经记不清了。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/25/%E6%88%91%E7%9A%84%E9%98%85%E8%AF%BB%E4%B9%A6%E7%9B%AE/">
@@ -526,6 +722,7 @@
         </h2>
 
         <div class="post-meta-container">
+	
           <div class="post-meta">
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -540,7 +737,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-25 08:50:29" itemprop="dateModified" datetime="2022-04-25T08:50:29+08:00">2022-04-25</time>
+      <time title="修改时间：2022-04-26 08:41:27" itemprop="dateModified" datetime="2022-04-26T08:41:27+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -548,7 +745,11 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
+          <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%99%E7%A8%8B/Markdown/" itemprop="url" rel="index"><span itemprop="name">Markdown</span></a>
         </span>
     </span>
 
@@ -577,7 +778,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>教程</p>
+          <p>一个关于Markdown的简单入门教程，涉及一些最基本的语法。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/24/Markdown%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
@@ -637,6 +838,7 @@
         </h2>
 
         <div class="post-meta-container">
+	
           <div class="post-meta">
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -651,7 +853,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-25 20:28:42" itemprop="dateModified" datetime="2022-04-25T20:28:42+08:00">2022-04-25</time>
+      <time title="修改时间：2022-04-26 08:43:51" itemprop="dateModified" datetime="2022-04-26T08:43:51+08:00">2022-04-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -660,6 +862,10 @@
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E8%AF%BB%E4%B9%A6/" itemprop="url" rel="index"><span itemprop="name">读书</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E4%B9%A6/%E6%91%98%E8%A6%81/" itemprop="url" rel="index"><span itemprop="name">摘要</span></a>
         </span>
     </span>
 
@@ -670,7 +876,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>3.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -688,7 +894,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>这是关于读书王小波文章的一些摘要，记录一下。</p>
+          <p>文化发展出版的王小波《一只特立独行的猪》集子，摘录其中的一些句子段落。王小波的“门下走狗”。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/24/%E7%8E%8B%E5%B0%8F%E6%B3%A2%E3%80%8A%E4%B8%80%E5%8F%AA%E7%89%B9%E7%AB%8B%E7%8B%AC%E8%A1%8C%E7%9A%84%E7%8C%AA%E3%80%8B%E6%91%98%E5%BD%95/">
@@ -775,16 +981,19 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@next-theme/pjax@0.5.0/pjax.min.js" integrity="sha256-3NkoLDrmHLTYj7csHIZSr0MHAFTXth7Ua/DDt4MRUAg=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
 
   
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
 
 
 
 
 
   
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

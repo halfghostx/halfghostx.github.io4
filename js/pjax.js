@@ -31,4 +31,8 @@ document.addEventListener('pjax:success', () => {
     NexT.utils.activateSidebarPanel(hasTOC ? 0 : 1);
     NexT.utils.updateSidebarPosition();
   }
+    loadMeting();
 });
+document.onload = function(){
+    loadMeting();
+}
